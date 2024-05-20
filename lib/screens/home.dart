@@ -15,7 +15,7 @@ class HomePage extends StatelessWidget{
           child: Column(
             children: [
               WeatherWidget(),
-             SizedBox(height: 10),
+             SizedBox(height: 9),
              Row(
                mainAxisAlignment: MainAxisAlignment.center,
                children: [
