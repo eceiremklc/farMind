@@ -1,0 +1,122 @@
+import 'dart:convert';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:http/http.dart' as http;
+
+class WeatherServices {
+  final String apiUrl = 'https://api.openweathermap.org/data/2.5/weather';
+  final String apiKey;
+
+  WeatherServices(this.apiKey);
+
+  Future<WeatherData> getWeather(String cityName) async {
+    final response = await http.get(
+      Uri.parse('$apiUrl?q=$cityName&appid=$apiKey&units=metric'),
+    );
+
+    if (response.statusCode == 200) {
+      var json = jsonDecode(response.body);
+      return WeatherData.fromJson(json);
+    } else {
+      throw Exception('Hava durumu verisi yüklenirken bir hata oluştu. Status Code: ${response.statusCode}');
+    }
+  }
+
+  Future<WeatherData> getWeatherByCoordinates(double latitude, double longitude) async {
+    final response = await http.get(
+      Uri.parse('$apiUrl?lat=$latitude&lon=$longitude&appid=$apiKey&units=metric'),
+    );
+
+    if (response.statusCode == 200) {
+      var json = jsonDecode(response.body);
+      return WeatherData.fromJson(json);
+    } else {
+      throw Exception('Hava durumu verisi yüklenirken bir hata oluştu. Status Code: ${response.statusCode}');
+    }
+  }
+
+  Future<String> getCurrentCity() async {
+    LocationPermission permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+    }
+
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+
+    List<Placemark> placemarks = await placemarkFromCoordinates(position.latitude, position.longitude);
+
+    String? city = placemarks[0].locality;
+    return city ?? "";
+  }
+}
+
+class WeatherData {
+  final String name;
+  final Temperature temperature;
+  final int humidity;
+  final Wind wind;
+  final double maxTemperature;
+  final double minTemperature;
+  final int pressure;
+  final int seaLevel;
+  final List<WeatherInfo> weather;
+
+  WeatherData({
+    required this.name,
+    required this.temperature,
+    required this.humidity,
+    required this.wind,
+    required this.maxTemperature,
+    required this.minTemperature,
+    required this.pressure,
+    required this.seaLevel,
+    required this.weather,
+  });
+
+  factory WeatherData.fromJson(Map<String, dynamic> json) {
+    return WeatherData(
+      name: json['name'],
+      temperature: Temperature.fromJson(json['main']),
+      humidity: json['main']['humidity'],
+      wind: Wind.fromJson(json['wind']),
+      maxTemperature: json['main']['temp_max'],
+      minTemperature: json['main']['temp_min'],
+      pressure: json['main']['pressure'],
+      seaLevel: json['main']['sea_level'] ?? 0,
+      weather: List<WeatherInfo>.from(
+        json['weather'].map((weather) => WeatherInfo.fromJson(weather)),
+      ),
+    );
+  }
+}
+
+class WeatherInfo {
+  final String main;
+
+  WeatherInfo({required this.main});
+
+  factory WeatherInfo.fromJson(Map<String, dynamic> json) {
+    return WeatherInfo(main: json['main']);
+  }
+}
+
+class Temperature {
+  final double current;
+
+  Temperature({required this.current});
+
+  factory Temperature.fromJson(Map<String, dynamic> json) {
+    return Temperature(current: json['temp']);
+  }
+}
+
+class Wind {
+  final double speed;
+
+  Wind({required this.speed});
+
+  factory Wind.fromJson(Map<String, dynamic> json) {
+    return Wind(speed: json['speed']);
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "363409264063",
+    "project_id": "farmind-59c4d",
+    "storage_bucket": "farmind-59c4d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:363409264063:android:a91183307a29f61242250a",
+        "android_client_info": {
+          "package_name": "com.example.farmind"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBTDYSb0zryZzAWCiCCKeHva6DUg-BAsw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
