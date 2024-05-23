@@ -1,5 +1,8 @@
+import 'package:farmind/components/air_humidity.dart';
 import 'package:farmind/components/humidity_card.dart';
 import 'package:farmind/components/temperature_card.dart';
+import 'package:farmind/components/water_tank.dart';
+import 'package:farmind/components/watering_card.dart';
 import 'package:farmind/components/weather_services.dart';
 import 'package:farmind/components/weather_widget.dart';
 import 'package:flutter/material.dart';
@@ -15,15 +18,23 @@ class HomePage extends StatelessWidget{
           child: Column(
             children: [
               WeatherWidget(),
-             SizedBox(height: 9),
              Row(
                mainAxisAlignment: MainAxisAlignment.center,
                children: [
                  HumidityCard(),
-                 SizedBox(width: 20,),
-                 TemperatureCard()
+                 WaterTank(),
                ],
-             )
+             ),
+              SizedBox(height: 16,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TemperatureCard(),
+                  AirHumidity(),
+                ],
+              ),
+              SizedBox(height: 8,),
+              WateringCard(),
             ],
           ),
         ),

@@ -12,8 +12,9 @@ class WeatherServices {
 
   Future<WeatherData> getWeather(String cityName) async {
     final response = await http.get(
-      Uri.parse('$apiUrl?q=$cityName&appid=$apiKey&units=metric'),
+      Uri.parse('$apiUrl?q=$cityName&appid=$apiKey&units=metric&lang=tr'),
     );
+
 
     if (response.statusCode == 200) {
       var json = jsonDecode(response.body);
@@ -25,7 +26,7 @@ class WeatherServices {
 
   Future<WeatherData> getWeatherByCoordinates(double latitude, double longitude) async {
     final response = await http.get(
-      Uri.parse('$apiUrl?lat=$latitude&lon=$longitude&appid=$apiKey&units=metric'),
+      Uri.parse('$apiUrl?lat=$latitude&lon=$longitude&appid=$apiKey&units=metric&lang=tr'),
     );
 
     if (response.statusCode == 200) {

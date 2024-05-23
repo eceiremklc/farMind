@@ -8,13 +8,18 @@ class Navbar extends StatelessWidget{
   Widget build(BuildContext context){
     return Container(
       width: 360,
-      height: 80,
+      height: 63,
+      margin: EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: const Color(0xFFD1CEC5),
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(30.0),
-          topRight: Radius.circular(30.0),
-        ),
+        color: const Color(0xFFF1F1E6),
+        borderRadius: BorderRadius.circular(30),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.8),
+            blurRadius: 4,
+            offset: Offset(0, 2),
+          ),
+        ],
       ),
       child: Row(
         children: [
@@ -29,9 +34,9 @@ class Navbar extends StatelessWidget{
             child: Column(
               children: [
                 Icon(
-                  Icons.home,
-                  color: const Color(0xFF12492F),
-                  size:35,
+                  Icons.home_rounded,
+                  color: const Color(0xFF075571),
+                  size: 28,
                 ),
                 SizedBox(height: 2), // İkon ile metin arasına boşluk eklemek için
                 Text(
@@ -52,9 +57,9 @@ class Navbar extends StatelessWidget{
             child: Column(
               children: [
                 Icon(
-                  Icons.menu,
-                  color: const Color(0xFF12492F),
-                  size:35,
+                  Icons.menu_rounded,
+                  color: const Color(0xFF075571),
+                  size: 28,
                 ),
                 SizedBox(height: 2), // İkon ile metin arasına boşluk eklemek için
                 Text(
@@ -73,8 +78,8 @@ class Navbar extends StatelessWidget{
               children: [
                 Icon(
                   Icons.person,
-                  color: const Color(0xFF12492F),
-                  size:35,
+                  color: const Color(0xFF075571),
+                  size: 28,
                 ),
                 SizedBox(height: 2), // İkon ile metin arasına boşluk eklemek için
                 Text(
@@ -92,9 +97,9 @@ class Navbar extends StatelessWidget{
             child: Column(
               children: [
                 Icon(
-                  Icons.settings,
-                  color: const Color(0xFF12492F),
-                  size:35,
+                  Icons.settings_rounded,
+                  color: const Color(0xFF075571),
+                  size: 28,
                 ),
                 SizedBox(height: 2), // İkon ile metin arasına boşluk eklemek için
                 Text(

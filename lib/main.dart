@@ -2,9 +2,13 @@ import 'package:farmind/screens/home.dart';
 import 'package:farmind/screens/login.dart';
 import 'package:farmind/screens/menu.dart';
 import 'package:farmind/screens/signup.dart';
+import 'package:farmind/screens/soil_humidity_details.dart';
 import 'package:farmind/screens/start.dart';
+import 'package:farmind/screens/temperature_details.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'components/sampleChart.dart';
+import 'components/soil_humidity_chart.dart';
 import 'firebase_options.dart';
 
 void main() async {
