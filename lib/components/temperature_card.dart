@@ -21,10 +21,10 @@ class _TemperatureCardState extends State<TemperatureCard> {
         );
       },
       child: Container(
-        padding: const EdgeInsets.all(15),
+        padding: const EdgeInsets.all(11),
         margin: EdgeInsets.only(left: 8, right: 8),
         width: 170,
-        height: 160,
+        height: 130,
         decoration: BoxDecoration(
           color: const Color(0xFFC3ECAF),
           borderRadius: BorderRadius.circular(20),
@@ -55,14 +55,14 @@ class _TemperatureCardState extends State<TemperatureCard> {
                   'Ölçülen Sıcaklık:',
                   style: HomeCardsStyles.card_header,
                 ),
-                SizedBox(height: 27),
+                SizedBox(height: 13),
                 Column(
                   children: [
                     Text(
                       '${temperature ?? 'N/A'}°C', // Display 'N/A' if humidity is null
                       style: HomeCardsStyles.card_data,
                     ),
-                    SizedBox(height: 14),
+                    SizedBox(height: 6),
                     Text(
                       'Son Ölçüm: $formattedTimestamp',
                       style: HomeCardsStyles.card_time,

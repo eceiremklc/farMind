@@ -1,3 +1,4 @@
+// weather_services.dart
 import 'dart:convert';
 import 'package:farmind/components/weather_data.dart';
 import 'package:geocoding/geocoding.dart';
@@ -5,16 +6,16 @@ import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 
 class WeatherServices {
-  final String apiUrl = 'https://api.openweathermap.org/data/2.5/weather';
+  final String currentWeatherUrl = 'https://api.openweathermap.org/data/2.5/weather';
+  final String forecastWeatherUrl = 'https://api.openweathermap.org/data/2.5/forecast';
   final String apiKey;
 
   WeatherServices(this.apiKey);
 
   Future<WeatherData> getWeather(String cityName) async {
     final response = await http.get(
-      Uri.parse('$apiUrl?q=$cityName&appid=$apiKey&units=metric&lang=tr'),
+      Uri.parse('$currentWeatherUrl?q=$cityName&appid=$apiKey&units=metric&lang=tr'),
     );
-
 
     if (response.statusCode == 200) {
       var json = jsonDecode(response.body);
@@ -26,7 +27,7 @@ class WeatherServices {
 
   Future<WeatherData> getWeatherByCoordinates(double latitude, double longitude) async {
     final response = await http.get(
-      Uri.parse('$apiUrl?lat=$latitude&lon=$longitude&appid=$apiKey&units=metric&lang=tr'),
+      Uri.parse('$currentWeatherUrl?lat=$latitude&lon=$longitude&appid=$apiKey&units=metric&lang=tr'),
     );
 
     if (response.statusCode == 200) {
@@ -34,6 +35,23 @@ class WeatherServices {
       return WeatherData.fromJson(json);
     } else {
       throw Exception('Hava durumu verisi yüklenirken bir hata oluştu. Status Code: ${response.statusCode}');
+    }
+  }
+
+  Future<List<WeatherData>> get5DayForecastByCoordinates(double latitude, double longitude) async {
+    final response = await http.get(
+      Uri.parse('$forecastWeatherUrl?lat=$latitude&lon=$longitude&appid=$apiKey&units=metric&lang=tr'),
+    );
+
+    if (response.statusCode == 200) {
+      var json = jsonDecode(response.body);
+      List<WeatherData> forecast = [];
+      for (var item in json['list']) {
+        forecast.add(WeatherData.fromJson(item));
+      }
+      return forecast;
+    } else {
+      throw Exception('5 günlük hava durumu verisi yüklenirken bir hata oluştu. Status Code: ${response.statusCode}');
     }
   }
 

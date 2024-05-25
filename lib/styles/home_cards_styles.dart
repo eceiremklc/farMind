@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class HomeCardsStyles {
   static TextStyle get card_header => TextStyle(
         fontFamily: 'Nunito',
-        fontSize: 15,
+        fontSize: 13,
         fontWeight: FontWeight.w700,
         color: const Color(0xFF075571),
       );
@@ -43,21 +43,21 @@ class HomeCardsStyles {
       );
 
   static TextStyle get weather_value => TextStyle(
-        fontSize: 43,
+        fontSize: 40,
         fontFamily: "Nunito",
         color: Colors.white,
         fontWeight: FontWeight.w600,
       );
 
   static TextStyle get weather_time => TextStyle(
-        fontSize: 15,
+        fontSize: 12,
         fontFamily: "Nunito",
         color: Colors.white,
         fontWeight: FontWeight.w600,
       );
 
   static TextStyle get weather_description => TextStyle(
-        fontSize: 13,
+        fontSize: 12,
         fontFamily: "Nunito",
         color: Colors.white,
         fontWeight: FontWeight.w600,

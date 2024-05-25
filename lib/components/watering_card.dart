@@ -12,10 +12,10 @@ class _WateringCardState extends State<WateringCard> {
     final formattedTimestamp = "14:30"; // Örnek zaman damgası
 
     return Container(
-      padding: const EdgeInsets.all(15),
+      padding: const EdgeInsets.all(10),
       margin: EdgeInsets.all(8),
       width: 355,
-      height: 85,
+      height: 75,
       decoration: BoxDecoration(
         color: const Color(0xFF33BEC3),
         borderRadius: BorderRadius.circular(20),

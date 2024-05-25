@@ -7,7 +7,7 @@ class SoilHumidityDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Soil Humidity Details'),
+        title: Text('Toprak Nemi Ölçümleri'),
       ),
       body: Center(
         child: Column(

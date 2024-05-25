@@ -3,6 +3,7 @@ import 'package:farmind/components/humidity_card.dart';
 import 'package:farmind/components/temperature_card.dart';
 import 'package:farmind/components/water_tank.dart';
 import 'package:farmind/components/watering_card.dart';
+import 'package:farmind/components/watering_switch.dart';
 import 'package:farmind/components/weather_services.dart';
 import 'package:farmind/components/weather_widget.dart';
 import 'package:flutter/material.dart';

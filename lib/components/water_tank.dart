@@ -11,10 +11,10 @@ class _WaterTankState extends State<WaterTank> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(15),
+      padding: const EdgeInsets.all(11),
       margin: EdgeInsets.only(left: 8, right: 8),
       width: 170,
-      height: 160,
+      height: 130,
       decoration: BoxDecoration(
         color: const Color(0xFFC3ECAF),
         borderRadius: BorderRadius.circular(20),
@@ -35,26 +35,26 @@ class _WaterTankState extends State<WaterTank> {
             return Text('No data available'); // If there's no data in Firestore
           }
           final data = snapshot.data!.docs.first.data() as Map<String, dynamic>?; // Extracting data from snapshot
-          final temperature = data?['sicaklikC']; // Use null-aware operator to access 'nem'
+          final suSeviyesi = data?['suSeviyesi']; // Use null-aware operator to access 'nem'
           final timestamp = data?['timestamp'] as Timestamp?; // Assuming timestamp is stored in Firestore
           final formattedTimestamp = timestamp != null ? "${timestamp.toDate().hour}:${timestamp.toDate().minute}" : 'N/A'; // Extract hour and minute from timestamp
           return Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                'Su Deposu Doluluk Oranı:',
+                'Depodaki Su Seviyesi:',
                 softWrap: true,
                 overflow: TextOverflow.visible,
                 style: HomeCardsStyles.card_header,
               ),
-              SizedBox(height: 7),
+              SizedBox(height: 13),
               Column(
                 children: [
                   Text(
-                    '% ..', // Display 'N/A' if humidity is null
+                    '%$suSeviyesi', // Display 'N/A' if humidity is null
                     style: HomeCardsStyles.card_data,
                   ),
-                  SizedBox(height: 14),
+                  SizedBox(height: 6),
                   Text(
                     'Son Ölçüm: $formattedTimestamp',
                     style: HomeCardsStyles.card_time,

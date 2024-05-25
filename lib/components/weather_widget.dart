@@ -14,7 +14,7 @@ class WeatherWidget extends StatefulWidget {
 class _WeatherWidgetState extends State<WeatherWidget> {
   final _weatherService = WeatherServices('4389978ee584532a83ec2b5233bc4050');
   late WeatherData weatherInfo;
-  bool isLoading = false;
+  bool isLoading = true;
   String errorMessage = '';
   Position? _currentPosition;
 
@@ -27,7 +27,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
         setState(() {
           weatherInfo = weather;
           _currentPosition = position;
-          isLoading = true;
+          isLoading = false;
           errorMessage = '';
         });
       } catch (e) {
@@ -57,14 +57,19 @@ class _WeatherWidgetState extends State<WeatherWidget> {
       pressure: 0,
       seaLevel: 0,
       weather: [],
+      date: '',
+      icon: '',
+      main: '',
+      description: '',
     );
     _fetchWeather();
   }
 
   @override
   Widget build(BuildContext context) {
-    String formattedDate = DateFormat('EEEE d, MMMM yyyy').format(DateTime.now());
-    String formattedTime = DateFormat('hh:mm a').format(DateTime.now());
+    var now = DateTime.now();
+    var formattedDate = DateFormat('EEEE d, MMMM yyyy', 'tr').format(now);
+    var formattedTime = DateFormat('HH:mm', 'tr').format(now);
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(15),
@@ -72,19 +77,18 @@ class _WeatherWidgetState extends State<WeatherWidget> {
         children: [
           Center(
             child: isLoading
-                ? WeatherDetail(
+                ? CircularProgressIndicator(color: Colors.black)
+                : errorMessage.isNotEmpty
+                ? Text(errorMessage, style: TextStyle(color: Colors.red))
+                : WeatherDetail(
               weather: weatherInfo,
               formattedDate: formattedDate,
               formattedTime: formattedTime,
               currentPosition: _currentPosition,
-            )
-                : errorMessage.isNotEmpty
-                ? Text(errorMessage, style: TextStyle(color: Colors.red))
-                : const CircularProgressIndicator(color: Colors.black),
+            ),
           ),
         ],
       ),
     );
   }
 }
-

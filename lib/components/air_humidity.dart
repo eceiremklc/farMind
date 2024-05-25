@@ -12,10 +12,10 @@ class _AirHumidityState extends State<AirHumidity> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(15),
+      padding: const EdgeInsets.all(11),
       margin: EdgeInsets.only(left: 8, right: 8),
       width: 170,
-      height: 160,
+      height: 130,
       decoration: BoxDecoration(
         color: const Color(0xFFD6E6E2),
         borderRadius: BorderRadius.circular(20),
@@ -43,19 +43,19 @@ class _AirHumidityState extends State<AirHumidity> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                'Havadaki Nem Seviyesi:',
+                'Hava Nem Seviyesi:',
                 softWrap: true,
                 overflow: TextOverflow.visible,
                 style: HomeCardsStyles.card_header,
               ),
-              SizedBox(height: 7),
+              SizedBox(height: 13),
               Column(
                 children: [
                   Text(
                     '%${humidity ?? 'N/A'}', // Display 'N/A' if humidity is null
                     style: HomeCardsStyles.card_data,
                   ),
-                  SizedBox(height: 14),
+                  SizedBox(height: 6),
                   Text(
                     'Son Ölçüm: $formattedTimestamp',
                     style: HomeCardsStyles.card_time,

@@ -8,6 +8,10 @@ class WeatherData {
   final int pressure;
   final int seaLevel;
   final List<WeatherInfo> weather;
+  final String date;
+  final String icon;
+  final String main;
+  final String description;
 
   WeatherData({
     required this.name,
@@ -19,11 +23,16 @@ class WeatherData {
     required this.pressure,
     required this.seaLevel,
     required this.weather,
+    required this.date,
+    required this.icon,
+    required this.main,
+    required this.description,
   });
 
   factory WeatherData.fromJson(Map<String, dynamic> json) {
     return WeatherData(
       name: json['name'] ?? 'Unknown',
+      date: json['dt_txt'] ?? '',
       temperature: Temperature.fromJson(json['main']),
       humidity: json['main']['humidity'] ?? 0,
       wind: Wind.fromJson(json['wind']),
@@ -31,6 +40,9 @@ class WeatherData {
       minTemperature: (json['main']['temp_min'] ?? 0.0).toDouble(),
       pressure: json['main']['pressure'] ?? 0,
       seaLevel: json['main']['sea_level'] ?? 0,
+      icon: json['weather'][0]['icon'] ?? '01d',
+      main: json['weather'][0]['main'] ?? 'Unknown',
+      description: json['weather'][0]['description'] ?? 'Unknown',
       weather: List<WeatherInfo>.from(
         (json['weather'] ?? []).map((weather) => WeatherInfo.fromJson(weather)),
       ),
@@ -39,17 +51,24 @@ class WeatherData {
 }
 
 class WeatherInfo {
-  final String main;
+  final String? main;
   final String? icon;
+  final String? date;
   final String? description;
 
-  WeatherInfo({required this.main, required this.icon, required this.description});
+  WeatherInfo({required this.main, required this.icon, required this.date, required this.description});
+
+  @override
+  String toString() {
+    return main ?? 'Unknown';
+  }
 
   factory WeatherInfo.fromJson(Map<String, dynamic> json) {
     return WeatherInfo(
       main: json['main'] ?? 'Unknown',
       icon: json['icon'] ?? '01d',
-      description: json['description'] ?? 'Unknown',
+      date: json['dt_txt'] ?? '',
+      description: json['desription'] ?? '',
     );
   }
 }
@@ -58,6 +77,11 @@ class Temperature {
   final double current;
 
   Temperature({required this.current});
+
+  @override
+  String toString() {
+    return '${current.round()}';
+  }
 
   factory Temperature.fromJson(Map<String, dynamic> json) {
     return Temperature(

@@ -11,7 +11,7 @@ class SoilHumidityChart extends StatefulWidget {
 
 class _SoilHumidityChartState extends State<SoilHumidityChart> {
   CollectionReference collectionRef =
-  FirebaseFirestore.instance.collection('sensordata');
+      FirebaseFirestore.instance.collection('sensordata');
 
   late List<ChartData> chartData;
 
@@ -23,10 +23,10 @@ class _SoilHumidityChartState extends State<SoilHumidityChart> {
 
   Future<void> getChartData() async {
     QuerySnapshot querySnapshot =
-    await collectionRef.orderBy('timestamp').get();
+        await collectionRef.orderBy('timestamp').get();
     List<ChartData> data = querySnapshot.docs.map((doc) {
       Map<String, dynamic> map = doc.data() as Map<String, dynamic>;
-      double y = map['nem'].toDouble();
+      double y = map['toprakNem'].toDouble();
       DateTime timestamp = (map['timestamp'] as Timestamp).toDate();
       return ChartData(timestamp: timestamp, y: y);
     }).toList();
@@ -44,31 +44,60 @@ class _SoilHumidityChartState extends State<SoilHumidityChart> {
       child: Center(
         // Center the chart within the container
         child: Container(
-          width: 390,
+          width: 350,
           height: 200,
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: const Color(0xFFFCF9F5),
           ),
           child: chartData == null
               ? Center(child: CircularProgressIndicator())
               : SfCartesianChart(
-            primaryXAxis: DateTimeAxis(),
-            primaryYAxis: NumericAxis(),
-            series: <LineSeries<ChartData, DateTime>>[
-              LineSeries<ChartData, DateTime>(
-                dataSource: chartData!,
-                xValueMapper: (ChartData data, _) => data.timestamp,
-                yValueMapper: (ChartData data, _) => data.y,
-                dataLabelSettings: DataLabelSettings(
-                  isVisible: true, // Veri etiketlerini göster
+                  primaryXAxis: DateTimeAxis(
+                    axisLine: AxisLine(
+                        color: Colors.black, width: 1.5
+                    ),
+                    majorGridLines: MajorGridLines(
+                      color: Colors.black.withOpacity(0.3), // X ekseni büyük grid çizgi rengi
+                      width: 1, // X ekseni büyük grid çizgi kalınlığı
+                    ),
+                    minorGridLines: MinorGridLines(
+                      color: Colors.black.withOpacity(0.3), // X ekseni küçük grid çizgi rengi
+                      width: 0.5, // X ekseni küçük grid çizgi kalınlığı
+                    ),
+                  ),
+
+                  primaryYAxis: NumericAxis(
+                    axisLine: AxisLine(
+                        color: Colors.black, width: 1.5
+                    ),
+                    majorGridLines: MajorGridLines(
+                      color: Colors.black.withOpacity(0.3), // X ekseni büyük grid çizgi rengi
+                      width: 1, // X ekseni büyük grid çizgi kalınlığı
+                    ),
+                    minorGridLines: MinorGridLines(
+                      color: Colors.black.withOpacity(0.3), // X ekseni küçük grid çizgi rengi
+                      width: 0.5, // X ekseni küçük grid çizgi kalınlığı
+                    ),
+                  ),
+                  series: <LineSeries<ChartData, DateTime>>[
+                    LineSeries<ChartData, DateTime>(
+                      color: Colors.black.withOpacity(0.7),
+                      dataSource: chartData!,
+                      xValueMapper: (ChartData data, _) => data.timestamp,
+                      yValueMapper: (ChartData data, _) => data.y,
+                      dataLabelSettings: DataLabelSettings(
+                        isVisible: true, // Veri etiketlerini göster
+                      ),
+                      enableTooltip: true, // İpucu etkinleştir
+                      markerSettings: MarkerSettings(
+                        borderWidth: 2.5,
+                        borderColor: Colors.green,
+                        color: Colors.white,
+                        isVisible: true, // Noktaları göster
+                      ),
+                    ),
+                  ],
                 ),
-                enableTooltip: true, // İpucu etkinleştir
-                markerSettings: MarkerSettings(
-                  isVisible: true, // Noktaları göster
-                ),
-              ),
-            ],
-          ),
         ),
       ),
     );
