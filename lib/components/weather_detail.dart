@@ -37,7 +37,7 @@ class WeatherDetail extends StatelessWidget {
       width: 360,
       height: 310,
       decoration: BoxDecoration(
-        color: const Color(0xFF33BEC3),
+        color: const Color(0xFF336A29),
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           HomeCardsStyles.card_shadow,

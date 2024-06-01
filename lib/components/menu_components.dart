@@ -126,32 +126,6 @@ class MenuComponents{
     ),
   );
 
-  static Container get plant_recognition => Container(
-    width: 340,
-    height: 60,
-    child: ElevatedButton.icon(
-      onPressed: (){
-
-      },
-      icon: Icon(
-        Icons.grass,
-        color: Colors.white,
-      ),
-      label: Text(
-        'Bitkinizi Tanıyın',
-        style: TextStyle(
-            fontFamily: "Nunito",
-            fontSize: 18,
-            fontWeight: FontWeight.w700,
-            color: Colors.white
-        ),
-      ),
-      style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFF006F62)),
-      ),
-    ),
-  );
-
   static Container get notes => Container(
     width: 340,
     height: 60,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 import '../screens/soil_humidity_details.dart';
 import '../styles/home_cards_styles.dart';
 
@@ -25,7 +26,7 @@ class _HumidityCardState extends State<HumidityCard> {
           width: 170,
           height: 130,
           decoration: BoxDecoration(
-            color: const Color(0xFFD6E6E2),
+            color: const Color(0xFF498428),
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
               HomeCardsStyles.card_shadow,
@@ -46,7 +47,7 @@ class _HumidityCardState extends State<HumidityCard> {
               final data = snapshot.data!.docs.first.data() as Map<String, dynamic>?; // Extracting data from snapshot
               final humidity = data?['toprakNem']; // Use null-aware operator to access 'nem'
               final timestamp = data?['timestamp'] as Timestamp?; // Assuming timestamp is stored in Firestore
-              final formattedTimestamp = timestamp != null ? "${timestamp.toDate().hour}:${timestamp.toDate().minute}" : 'N/A'; // Extract hour and minute from timestamp
+              final formattedTimestamp = timestamp != null ? DateFormat('HH.mm').format(timestamp.toDate()) : 'N/A'; // Extract hour and minute from timestamp
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [

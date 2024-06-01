@@ -58,12 +58,14 @@ class _SoilHumidityChartState extends State<SoilHumidityChart> {
                     ),
                     majorGridLines: MajorGridLines(
                       color: Colors.black.withOpacity(0.3), // X ekseni büyük grid çizgi rengi
-                      width: 1, // X ekseni büyük grid çizgi kalınlığı
+                      width: 0.5, // X ekseni büyük grid çizgi kalınlığı
                     ),
                     minorGridLines: MinorGridLines(
                       color: Colors.black.withOpacity(0.3), // X ekseni küçük grid çizgi rengi
                       width: 0.5, // X ekseni küçük grid çizgi kalınlığı
                     ),
+                    minorTicksPerInterval: 1, // Her büyük grid çizgisi arasında 4 küçük grid çizgisi
+                    interval: 5, // Büyük grid çizgileri arasındaki mesafe (örneğin, 1 gün)
                   ),
 
                   primaryYAxis: NumericAxis(
@@ -72,12 +74,14 @@ class _SoilHumidityChartState extends State<SoilHumidityChart> {
                     ),
                     majorGridLines: MajorGridLines(
                       color: Colors.black.withOpacity(0.3), // X ekseni büyük grid çizgi rengi
-                      width: 1, // X ekseni büyük grid çizgi kalınlığı
+                      width: 0.5, // X ekseni büyük grid çizgi kalınlığı
                     ),
                     minorGridLines: MinorGridLines(
                       color: Colors.black.withOpacity(0.3), // X ekseni küçük grid çizgi rengi
                       width: 0.5, // X ekseni küçük grid çizgi kalınlığı
                     ),
+                    minorTicksPerInterval: 1, // Her büyük grid çizgisi arasında 4 küçük grid çizgisi
+                    interval: 10, // Büyük grid çizgileri arasındaki mesafe (örneğin, 10 birim)
                   ),
                   series: <LineSeries<ChartData, DateTime>>[
                     LineSeries<ChartData, DateTime>(

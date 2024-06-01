@@ -5,20 +5,20 @@ class HomeCardsStyles {
         fontFamily: 'Nunito',
         fontSize: 13,
         fontWeight: FontWeight.w700,
-        color: const Color(0xFF075571),
+        color: Colors.white,
       );
 
   static TextStyle get card_data => TextStyle(
         fontFamily: 'Nunito',
         fontSize: 35,
-        color: const Color(0xFF075571),
+        color: Colors.white,
         fontWeight: FontWeight.w600,
       );
 
   static TextStyle get card_time => TextStyle(
         fontFamily: 'Nunito',
         fontSize: 12,
-        color: const Color(0xFF075571),
+        color: Colors.white,
       );
 
   static TextStyle get last_watering_header => TextStyle(

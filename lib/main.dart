@@ -8,8 +8,10 @@ import 'package:farmind/screens/start.dart';
 import 'package:farmind/screens/temperature_details.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'components/consts.dart';
 import 'components/sampleChart.dart';
 import 'components/soil_humidity_chart.dart';
 import 'firebase_options.dart';
@@ -20,6 +22,9 @@ void main() async {
   await initializeDateFormatting('tr', '');
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
+  );
+  Gemini.init(
+    apiKey: GEMINI_API_KEY,
   );
   runApp(const MyApp());
 }
