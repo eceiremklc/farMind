@@ -1,8 +1,12 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../styles/detail_styles.dart';
 
 class RecognizePlant extends StatefulWidget {
   @override
@@ -11,26 +15,34 @@ class RecognizePlant extends StatefulWidget {
 
 class _RecognizePlantState extends State<RecognizePlant> {
   final Gemini gemini = Gemini.instance;
-
+  final String question1 = "Bu bitkinin adı nedir? Yetiştirmek için gereken optimum koşullar neleflutterrdir, maddeler halinde listeler misin?";
   List<ChatMessage> messages = [];
 
   ChatUser currentUser = ChatUser(id: "0", firstName: "User");
   ChatUser geminiUser = ChatUser(
     id: "1",
     firstName: "Gemini",
-    profileImage:
-    "https://seeklogo.com/images/G/google-gemini-logo-A5787B2669-seeklogo.com.png",
+    profileImage: "assets/logo1.jpg",
   );
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text(
-          "Gemini Chat",
+        title: Text(
+          "FarMind Chat",
+          style: DetailStyles.header,
         ),
       ),
-      body: _buildUI(),
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/fon.png'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: _buildUI(),
+      ),
     );
   }
 
@@ -55,19 +67,21 @@ class _RecognizePlantState extends State<RecognizePlant> {
       messages = [chatMessage, ...messages];
     });
     try {
-      String question = chatMessage.text;
+      String question = question1;
       List<Uint8List>? images;
       if (chatMessage.medias?.isNotEmpty ?? false) {
         images = [
           File(chatMessage.medias!.first.url).readAsBytesSync(),
         ];
       }
-      gemini
-          .streamGenerateContent(
+      gemini.streamGenerateContent(
         question,
         images: images,
-      )
-          .listen((event) {
+        generationConfig: GenerationConfig(
+          temperature: 0.2,
+          maxOutputTokens: 500,
+        ),
+      ).listen((event) {
         ChatMessage? lastMessage = messages.firstOrNull;
         if (lastMessage != null && lastMessage.user == geminiUser) {
           lastMessage = messages.removeAt(0);
@@ -108,7 +122,7 @@ class _RecognizePlantState extends State<RecognizePlant> {
       ChatMessage chatMessage = ChatMessage(
         user: currentUser,
         createdAt: DateTime.now(),
-        text: "Describe this picture?",
+        text: "",
         medias: [
           ChatMedia(
             url: file.path,

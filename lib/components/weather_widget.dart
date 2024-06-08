@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:farmind/components/weather_data.dart';
 import 'package:farmind/components/weather_detail.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +19,9 @@ class _WeatherWidgetState extends State<WeatherWidget> {
   bool isLoading = true;
   String errorMessage = '';
   Position? _currentPosition;
+  late Timer _timer;
+  String formattedDate = '';
+  String formattedTime = '';
 
   _fetchWeather() async {
     var permissionStatus = await Permission.location.request();
@@ -44,6 +49,14 @@ class _WeatherWidgetState extends State<WeatherWidget> {
     }
   }
 
+  void _updateDateTime() {
+    var now = DateTime.now();
+    setState(() {
+      formattedDate = DateFormat('EEEE d, MMMM yyyy', 'tr').format(now);
+      formattedTime = DateFormat('HH:mm', 'tr').format(now);
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -63,13 +76,20 @@ class _WeatherWidgetState extends State<WeatherWidget> {
       description: '',
     );
     _fetchWeather();
+    _updateDateTime();
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      _updateDateTime();
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    var now = DateTime.now();
-    var formattedDate = DateFormat('EEEE d, MMMM yyyy', 'tr').format(now);
-    var formattedTime = DateFormat('HH:mm', 'tr').format(now);
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(15),
@@ -77,9 +97,24 @@ class _WeatherWidgetState extends State<WeatherWidget> {
         children: [
           Center(
             child: isLoading
-                ? CircularProgressIndicator(color: Colors.black)
+                ? SizedBox(
+              width: 360,
+              height: 310,
+              child: Center(
+                child: CircularProgressIndicator(color: Colors.black),
+              ),
+            )
                 : errorMessage.isNotEmpty
-                ? Text(errorMessage, style: TextStyle(color: Colors.red))
+                ? SizedBox(
+              width: 360,
+              height: 310,
+              child: Center(
+                child: Text(
+                  errorMessage,
+                  style: TextStyle(color: Colors.red),
+                ),
+              ),
+            )
                 : WeatherDetail(
               weather: weatherInfo,
               formattedDate: formattedDate,

@@ -1,24 +1,29 @@
 import 'package:flutter/material.dart';
-class MenuComponents{
-  static Container get weather => Container(
+import 'package:farmind/screens/temperature_details.dart';
+
+class MenuComponents {
+  static Container weather(BuildContext context, Widget targetScreen) => Container(
     width: 340,
     height: 60,
     child: ElevatedButton.icon(
-      onPressed: (){
-
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => targetScreen),
+        );
       },
       icon: Icon(
-          Icons.sunny,
-          color: Colors.white,
+        Icons.sunny,
+        color: Colors.white,
       ),
       label: Text(
-          'Hava Durumu',
-          style: TextStyle(
+        'Hava Durumu',
+        style: TextStyle(
           fontFamily: "Nunito",
-            fontSize: 18,
-            fontWeight: FontWeight.w700,
-            color: Colors.white
-      ),
+          fontSize: 18,
+          fontWeight: FontWeight.w700,
+          color: Colors.white,
+        ),
       ),
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFFBDD664)),
@@ -26,20 +31,23 @@ class MenuComponents{
     ),
   );
 
-  static Container get sicaklik_nem => Container(
+  static Container sicaklik(BuildContext context, Widget targetScreen) => Container(
     width: 340,
     height: 60,
     child: ElevatedButton(
-      onPressed: (){
-
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => targetScreen),
+        );
       },
       child: Text(
         'Sıcaklık ve Nem Ölçümleri',
         style: TextStyle(
-            fontFamily: "Nunito",
-            fontSize: 18,
-            fontWeight: FontWeight.w700,
-            color: Colors.white
+          fontFamily: "Nunito",
+          fontSize: 18,
+          fontWeight: FontWeight.w700,
+          color: Colors.white,
         ),
       ),
       style: ButtonStyle(
@@ -48,12 +56,40 @@ class MenuComponents{
     ),
   );
 
-  static Container get humidity => Container(
+  static Container recognizePlant(BuildContext context, Widget targetScreen) => Container(
+    width: 340,
+    height: 60,
+    child: ElevatedButton(
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => targetScreen),
+        );
+      },
+      child: Text(
+        'Bitkinizi Tanıyın',
+        style: TextStyle(
+          fontFamily: "Nunito",
+          fontSize: 18,
+          fontWeight: FontWeight.w700,
+          color: Colors.white,
+        ),
+      ),
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFF006a50)),
+      ),
+    ),
+  );
+
+  static Container humidity(BuildContext context, Widget targetScreen) => Container(
     width: 340,
     height: 60,
     child: ElevatedButton.icon(
-      onPressed: (){
-
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => targetScreen),
+        );
       },
       icon: Icon(
         Icons.water_drop,
@@ -62,10 +98,10 @@ class MenuComponents{
       label: Text(
         'Toprak Nemi Ölçümleri',
         style: TextStyle(
-            fontFamily: "Nunito",
-            fontSize: 18,
-            fontWeight: FontWeight.w700,
-            color: Colors.white
+          fontFamily: "Nunito",
+          fontSize: 18,
+          fontWeight: FontWeight.w700,
+          color: Colors.white,
         ),
       ),
       style: ButtonStyle(
@@ -74,12 +110,15 @@ class MenuComponents{
     ),
   );
 
-  static Container get water_level => Container(
+  static Container waterLevel(BuildContext context, Widget targetScreen) => Container(
     width: 340,
     height: 60,
     child: ElevatedButton.icon(
-      onPressed: (){
-
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => targetScreen),
+        );
       },
       icon: Icon(
         Icons.water,
@@ -88,10 +127,10 @@ class MenuComponents{
       label: Text(
         'Sulama Deposu',
         style: TextStyle(
-            fontFamily: "Nunito",
-            fontSize: 18,
-            fontWeight: FontWeight.w700,
-            color: Colors.white
+          fontFamily: "Nunito",
+          fontSize: 18,
+          fontWeight: FontWeight.w700,
+          color: Colors.white,
         ),
       ),
       style: ButtonStyle(
@@ -100,12 +139,15 @@ class MenuComponents{
     ),
   );
 
-  static Container get watering => Container(
+  static Container watering(BuildContext context, Widget targetScreen) => Container(
     width: 340,
     height: 60,
     child: ElevatedButton.icon(
-      onPressed: (){
-
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => targetScreen),
+        );
       },
       icon: Icon(
         Icons.opacity,
@@ -114,10 +156,10 @@ class MenuComponents{
       label: Text(
         'Sulama',
         style: TextStyle(
-            fontFamily: "Nunito",
-            fontSize: 18,
-            fontWeight: FontWeight.w700,
-            color: Colors.white
+          fontFamily: "Nunito",
+          fontSize: 18,
+          fontWeight: FontWeight.w700,
+          color: Colors.white,
         ),
       ),
       style: ButtonStyle(
@@ -126,12 +168,15 @@ class MenuComponents{
     ),
   );
 
-  static Container get notes => Container(
+  static Container notes(BuildContext context, Widget targetScreen) => Container(
     width: 340,
     height: 60,
     child: ElevatedButton.icon(
-      onPressed: (){
-
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => targetScreen),
+        );
       },
       icon: Icon(
         Icons.sticky_note_2_sharp,
@@ -140,10 +185,10 @@ class MenuComponents{
       label: Text(
         'Notlar',
         style: TextStyle(
-            fontFamily: "Nunito",
-            fontSize: 18,
-            fontWeight: FontWeight.w700,
-            color: Colors.white
+          fontFamily: "Nunito",
+          fontSize: 18,
+          fontWeight: FontWeight.w700,
+          color: Colors.white,
         ),
       ),
       style: ButtonStyle(

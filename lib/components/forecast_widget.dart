@@ -106,6 +106,12 @@ class ForecastCard extends StatelessWidget {
     return weekdayNames[dateTime.weekday - 1];
   }
 
+  // İlk harfi büyük yapma fonksiyonu
+  String _capitalizeFirstLetter(String text) {
+    if (text.isEmpty) return text;
+    return text[0].toUpperCase() + text.substring(1);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -114,7 +120,7 @@ class ForecastCard extends StatelessWidget {
       padding: const EdgeInsets.all(5.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(17),
-        color: Colors.white.withOpacity(0.4),
+        color: Colors.lightGreen.withOpacity(0.4),
       ),
       child: Column(
         children: [
@@ -124,6 +130,7 @@ class ForecastCard extends StatelessWidget {
                 fontSize: 12,
                 fontWeight: FontWeight.bold,
               fontFamily: 'Nunito',
+              color: Colors.white
             ),
           ),
           Image.network('http://openweathermap.org/img/wn/${weather.icon}@2x.png'),
@@ -131,15 +138,17 @@ class ForecastCard extends StatelessWidget {
             style: TextStyle(
               fontFamily: 'Nunito',
               fontSize: 13.5,
+                color: Colors.white
             ),
           ),
           // Null güvenliği ekleyerek description'ı kontrol edin
           SizedBox(height: 2,),
-          Text('${weather.description ?? ''}',
+          Text(_capitalizeFirstLetter(weather.description ?? ''),
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 9,
                 fontFamily: 'Nunito',
+                  color: Colors.white
               ),
           ),
         ],

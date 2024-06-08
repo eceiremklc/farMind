@@ -51,10 +51,18 @@ dependencies:
   flutter_localization: ^0.2.0
   flutter_gemini: ^2.0.4
   image_picker: ^1.1.2
+  dash_chat_2: ^0.0.20
+  flutter_launcher_icons: ^0.13.1
+  excel: ^4.0.2
+
+dependency_overrides:
+  intl: '0.18.0'
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -62,6 +70,11 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+
+
+flutter_icons:
+  android: true
+  image_path: "assets/playstore.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -83,6 +96,12 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  assets:
+    - assets/logo1.jpg
+    - assets/fon.png
+    - assets/playstore.png
+
 
   # To add assets to your application, add an assets section, like this:
   # assets:

@@ -1,8 +1,9 @@
-import 'package:farmind/components/forecast_widget.dart';
 import 'package:farmind/components/weather_data.dart';
 import 'package:farmind/styles/home_cards_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+
+import 'forecast_widget.dart';
 
 class WeatherDetail extends StatelessWidget {
   final WeatherData weather;
@@ -20,13 +21,12 @@ class WeatherDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Null güvenliği için kontrol ekliyoruz
     String iconCode =
-        weather.weather.isNotEmpty ? weather.weather[0].icon ?? '01d' : '01d';
+    weather.weather.isNotEmpty ? weather.weather[0].icon ?? '01d' : '01d';
     String iconUrl = 'http://openweathermap.org/img/wn/$iconCode@2x.png';
     String cityName = weather.name.isNotEmpty ? weather.name : "yükleniyor..";
     String temperature = weather.temperature.current != null
-        ? "${weather.temperature.current!.round()}°C"
+        ? "${weather.temperature.current.round()}°C"
         : "N/A";
     String description = weather.weather.isNotEmpty
         ? weather.description ?? "Bilgi bulunamadı"
@@ -53,9 +53,7 @@ class WeatherDetail extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(
-                width: 43,
-              ),
+              SizedBox(width: 43),
               Text(temperature, style: HomeCardsStyles.weather_value),
               SizedBox(width: 44),
               Column(
@@ -91,9 +89,7 @@ class WeatherDetail extends StatelessWidget {
                 formattedDate,
                 style: HomeCardsStyles.weather_time,
               ),
-              SizedBox(
-                width: 30,
-              ),
+              SizedBox(width: 30),
               Text(
                 formattedTime,
                 style: HomeCardsStyles.weather_time,

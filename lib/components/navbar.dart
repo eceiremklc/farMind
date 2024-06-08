@@ -1,4 +1,6 @@
 import 'package:farmind/screens/home.dart';
+import 'package:farmind/screens/my_profile.dart';
+import 'package:farmind/screens/recognize_plant.dart';
 import 'package:farmind/styles/navbar_styles.dart';
 import 'package:flutter/material.dart';
 import './/screens/menu.dart';
@@ -72,7 +74,33 @@ class Navbar extends StatelessWidget{
           Spacer(),
           TextButton(
             onPressed: () {
-              // Butona tıklandığında yapılacak işlemler
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => RecognizePlant()),
+              );
+            },
+            child: Column(
+              children: [
+                Icon(
+                  Icons.grass,
+                  color: const Color(0xFFa9a9a1),
+                  size: 28,
+                ),
+                SizedBox(height: 2), // İkon ile metin arasına boşluk eklemek için
+                Text(
+                    'Bitki Tanıma',
+                    style: NavbarStyles.button_text
+                ),
+              ],
+            ),
+          ),
+          Spacer(),
+          TextButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => MyProfile()),
+              );
             },
             child: Column(
               children: [
@@ -84,26 +112,6 @@ class Navbar extends StatelessWidget{
                 SizedBox(height: 2), // İkon ile metin arasına boşluk eklemek için
                 Text(
                     'Profilim',
-                    style: NavbarStyles.button_text
-                ),
-              ],
-            ),
-          ),
-          Spacer(),
-          TextButton(
-            onPressed: () {
-              // Butona tıklandığında yapılacak işlemler
-            },
-            child: Column(
-              children: [
-                Icon(
-                  Icons.settings_rounded,
-                  color: const Color(0xFFa9a9a1),
-                  size: 28,
-                ),
-                SizedBox(height: 2), // İkon ile metin arasına boşluk eklemek için
-                Text(
-                    'Ayarlar',
                     style: NavbarStyles.button_text
                 ),
               ],
