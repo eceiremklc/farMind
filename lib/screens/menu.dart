@@ -7,33 +7,47 @@ import 'package:farmind/screens/temperature_details.dart';
 import 'package:farmind/screens/water_tank_details.dart';
 import 'package:flutter/material.dart';
 
-class Menu extends StatelessWidget{
+class Menu extends StatelessWidget {
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              //MenuComponents.weather(context, WeatherScreen),
-              //SizedBox(height: 25,),
-              MenuComponents.sicaklik(context, TemperatureDetails()),
-              SizedBox(height: 25,),
-              MenuComponents.humidity(context, SoilHumidityDetails()),
-              SizedBox(height: 25,),
-              MenuComponents.waterLevel(context, WaterTankDetails()),
-              SizedBox(height: 25,),
-              MenuComponents.watering(context, WateringSwitch()),
-              SizedBox(height: 25,),
-              MenuComponents.recognizePlant(context, RecognizePlant()),
-              SizedBox(height: 25,),
-              //MenuComponents.notes,
-            ],
+      body: Stack(
+        children: [
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/fon.png'),
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
-        ),
+          SafeArea(
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  MenuComponents.sicaklik(context, TemperatureDetails()),
+                  SizedBox(height: 25),
+                  MenuComponents.humidity(context, SoilHumidityDetails()),
+                  SizedBox(height: 25),
+                  MenuComponents.waterLevel(context, WaterTankDetails()),
+                  SizedBox(height: 25),
+                  MenuComponents.watering(context, WateringSwitch()),
+                  SizedBox(height: 25),
+                  MenuComponents.recognizePlant(context, RecognizePlant()),
+                  SizedBox(height: 25),
+                ],
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Navbar(),
+          ),
+        ],
       ),
-      bottomNavigationBar: Navbar(),
     );
   }
 }

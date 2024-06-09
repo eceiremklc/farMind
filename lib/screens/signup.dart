@@ -124,7 +124,12 @@ class SignUpPage extends StatelessWidget{
               SizedBox(height: 20,),
               SizedBox(height: 50, width: 140,
                 child: ElevatedButton(
-                  onPressed: () =>  _registerWithEmailAndPassword(context),
+                  onPressed: () {
+                    _registerWithEmailAndPassword(context);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => LoginPage()));
+                  },
                   style: SignUpStyles.kayit_button,
                   child: Text(
                     'Kayıt Ol',

@@ -25,10 +25,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         return windows;
       case TargetPlatform.linux:
@@ -44,39 +41,47 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAxWYQaqfuvgQw81Id4wKI7n-vW4m_xScQ',
-    appId: '1:363409264063:web:6807ab4e6b3f6e7a42250a',
-    messagingSenderId: '363409264063',
-    projectId: 'farmind-59c4d',
-    authDomain: 'farmind-59c4d.firebaseapp.com',
-    storageBucket: 'farmind-59c4d.appspot.com',
-    measurementId: 'G-B2DBB1CJG1',
+    apiKey: 'AIzaSyCU6EhutdpRHuOqFJBNFXTHQRnC0x5t8l8',
+    appId: '1:878470997474:web:e74bea814ee3906c4445bb',
+    messagingSenderId: '878470997474',
+    projectId: 'farmindv2',
+    authDomain: 'farmindv2.firebaseapp.com',
+    storageBucket: 'farmindv2.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCBTDYSb0zryZzAWCiCCKeHva6DUg-BAsw',
-    appId: '1:363409264063:android:a91183307a29f61242250a',
-    messagingSenderId: '363409264063',
-    projectId: 'farmind-59c4d',
-    storageBucket: 'farmind-59c4d.appspot.com',
+    apiKey: 'AIzaSyAfJqFyOmv13pD4MiQV2Kyuldv-wu8KCvo',
+    appId: '1:878470997474:android:b4327b628db047c74445bb',
+    messagingSenderId: '878470997474',
+    projectId: 'farmindv2',
+    storageBucket: 'farmindv2.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBP3oRr2AOw1NsLAjj4ohV7RePpkaj_TiE',
-    appId: '1:363409264063:ios:ddff2cc7680aeef642250a',
-    messagingSenderId: '363409264063',
-    projectId: 'farmind-59c4d',
-    storageBucket: 'farmind-59c4d.appspot.com',
+    apiKey: 'AIzaSyCOieGLP7rRsX4blpS4Ub0HdXxqhU_RCmQ',
+    appId: '1:878470997474:ios:43a4100d4912055c4445bb',
+    messagingSenderId: '878470997474',
+    projectId: 'farmindv2',
+    storageBucket: 'farmindv2.appspot.com',
     iosBundleId: 'com.example.farmind',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyAxWYQaqfuvgQw81Id4wKI7n-vW4m_xScQ',
-    appId: '1:363409264063:web:c606a56d9de07abe42250a',
-    messagingSenderId: '363409264063',
-    projectId: 'farmind-59c4d',
-    authDomain: 'farmind-59c4d.firebaseapp.com',
-    storageBucket: 'farmind-59c4d.appspot.com',
-    measurementId: 'G-E6675BTN85',
+    apiKey: 'AIzaSyCU6EhutdpRHuOqFJBNFXTHQRnC0x5t8l8',
+    appId: '1:878470997474:web:5b748a9234bf432b4445bb',
+    messagingSenderId: '878470997474',
+    projectId: 'farmindv2',
+    authDomain: 'farmindv2.firebaseapp.com',
+    storageBucket: 'farmindv2.appspot.com',
   );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyCOieGLP7rRsX4blpS4Ub0HdXxqhU_RCmQ',
+    appId: '1:878470997474:ios:43a4100d4912055c4445bb',
+    messagingSenderId: '878470997474',
+    projectId: 'farmindv2',
+    storageBucket: 'farmindv2.appspot.com',
+    iosBundleId: 'com.example.farmind',
+  );
+
 }

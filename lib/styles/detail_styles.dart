@@ -10,14 +10,14 @@ class DetailStyles {
 
   static TextStyle get avgwidget => TextStyle(
       fontFamily: 'Nunito',
-      fontSize: 14,
-      fontWeight: FontWeight.w500,
+      fontSize: 18,
+      fontWeight: FontWeight.w600,
       color: const Color(0xFF12492F)
   );
 
   static TextStyle get avgdata => TextStyle(
       fontFamily: 'Nunito',
-      fontSize: 30,
+      fontSize: 25,
       fontWeight: FontWeight.w700,
       color: const Color(0xFF12492F)
   );

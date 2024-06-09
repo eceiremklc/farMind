@@ -83,13 +83,6 @@ class LoginPage extends StatelessWidget{
               ),
               SizedBox(height: 30,),
               TextButton(
-                onPressed: (){},
-                child: Text(
-                  'Şifremi Unuttum',
-                  style: LoginStyles.tb_style,
-                ),
-              ),
-              TextButton(
                 onPressed: (){
                   Navigator.push(
                       context,

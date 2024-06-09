@@ -13,7 +13,8 @@ class _TemperatureChartState extends State<TemperatureChart> {
   CollectionReference collectionRef =
   FirebaseFirestore.instance.collection('sensordata');
 
-  late List<ChartData> chartData;
+  List<ChartData> chartData = []; // chartData'yı boş liste olarak başlat
+  double? averageSoilHumidity;
 
   @override
   void initState() {
@@ -22,43 +23,49 @@ class _TemperatureChartState extends State<TemperatureChart> {
   }
 
   Future<void> getChartData() async {
-    // Get current date
-    DateTime now = DateTime.now();
+    try {
+      // Firestore sorgusu (tarih filtresi kaldırıldı)
+      QuerySnapshot querySnapshot = await collectionRef
+          .orderBy('timestamp') // Zaman damgasına göre sırala
+          .get();
 
-    // Set the starting date for the last two days
-    DateTime twoDaysAgo = now.subtract(const Duration(days: 2));
+      if (querySnapshot.docs.isEmpty) {
+        print('Veri bulunamadı');
+      } else {
+        print('Veri başarıyla alındı');
+      }
 
-    QuerySnapshot querySnapshot = await collectionRef
-        .where('timestamp', isGreaterThanOrEqualTo: twoDaysAgo)
-        .where('timestamp', isLessThanOrEqualTo: now)
-        .orderBy('timestamp')
-        .get();
-    List<ChartData> data = querySnapshot.docs.map((doc) {
-      Map<String, dynamic> map = doc.data() as Map<String, dynamic>;
-      double y = map['sicaklikC'].toDouble();
-      DateTime timestamp = (map['timestamp'] as Timestamp).toDate();
-      return ChartData(timestamp: timestamp, y: y);
-    }).toList();
-    setState(() {
-      chartData = data;
-    });
+      // Veriyi eşleyin
+      List<ChartData> data = querySnapshot.docs.map((doc) {
+        Map<String, dynamic> map = doc.data() as Map<String, dynamic>;
+        double y = map['sicaklikC'].toDouble();
+        DateTime timestamp = (map['timestamp'] as Timestamp).toDate();
+        return ChartData(timestamp: timestamp, y: y);
+      }).toList();
+
+      // Durumu güncelle
+      setState(() {
+        chartData = data;
+      });
+    } catch (e) {
+      print('Veri alınırken hata oluştu: $e');
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      // Wrap the chart with another Container to control its size
-      width: double.infinity, // Ensures the container fills the width
-      height: double.infinity, // Ensures the container fills the height
+      width: double.infinity, // Konteynerin genişliği doldurmasını sağlar
+      height: double.infinity, // Konteynerin yüksekliği doldurmasını sağlar
       child: Center(
-        // Center the chart within the container
+        // Grafiği konteynerin ortasına yerleştirir
         child: Container(
           width: 350,
-          height: 200,
+          height: 310,
           decoration: BoxDecoration(
             color: Colors.transparent,
           ),
-          child: chartData == null
+          child: chartData.isEmpty
               ? Center(child: CircularProgressIndicator())
               : SfCartesianChart(
             primaryXAxis: DateTimeAxis(
@@ -66,42 +73,48 @@ class _TemperatureChartState extends State<TemperatureChart> {
                   color: Colors.black, width: 1.5
               ),
               majorGridLines: MajorGridLines(
-                color: Colors.black.withOpacity(0.3), // X ekseni büyük grid çizgi rengi
+                color: Colors.black.withOpacity(0.3),
+                // X ekseni büyük grid çizgi rengi
                 width: 0.5, // X ekseni büyük grid çizgi kalınlığı
               ),
               minorGridLines: MinorGridLines(
-                color: Colors.black.withOpacity(0.3), // X ekseni küçük grid çizgi rengi
+                color: Colors.black.withOpacity(0.3),
+                // X ekseni küçük grid çizgi rengi
                 width: 0.5, // X ekseni küçük grid çizgi kalınlığı
               ),
-              minorTicksPerInterval: 1, // Her büyük grid çizgisi arasında 4 küçük grid çizgisi
+              minorTicksPerInterval: 1,
+              // Her büyük grid çizgisi arasında 4 küçük grid çizgisi
               interval: 5, // Büyük grid çizgileri arasındaki mesafe (örneğin, 1 gün)
             ),
-
             primaryYAxis: NumericAxis(
               axisLine: AxisLine(
                   color: Colors.black, width: 1.5
               ),
               majorGridLines: MajorGridLines(
-                color: Colors.black.withOpacity(0.3), // X ekseni büyük grid çizgi rengi
-                width: 0.5, // X ekseni büyük grid çizgi kalınlığı
+                color: Colors.black.withOpacity(0.3),
+                // Y ekseni büyük grid çizgi rengi
+                width: 0.5, // Y ekseni büyük grid çizgi kalınlığı
               ),
               minorGridLines: MinorGridLines(
-                color: Colors.black.withOpacity(0.3), // X ekseni küçük grid çizgi rengi
-                width: 0.5, // X ekseni küçük grid çizgi kalınlığı
+                color: Colors.black.withOpacity(0.3),
+                // Y ekseni küçük grid çizgi rengi
+                width: 0.5, // Y ekseni küçük grid çizgi kalınlığı
               ),
-              minorTicksPerInterval: 1, // Her büyük grid çizgisi arasında 4 küçük grid çizgisi
+              minorTicksPerInterval: 1,
+              // Her büyük grid çizgisi arasında 4 küçük grid çizgisi
               interval: 10, // Büyük grid çizgileri arasındaki mesafe (örneğin, 10 birim)
             ),
             series: <LineSeries<ChartData, DateTime>>[
               LineSeries<ChartData, DateTime>(
                 color: Colors.black.withOpacity(0.7),
-                dataSource: chartData!,
+                dataSource: chartData,
                 xValueMapper: (ChartData data, _) => data.timestamp,
                 yValueMapper: (ChartData data, _) => data.y,
                 dataLabelSettings: DataLabelSettings(
                   isVisible: true, // Veri etiketlerini göster
                 ),
-                enableTooltip: true, // İpucu etkinleştir
+                enableTooltip: true,
+                // İpucu etkinleştir
                 markerSettings: MarkerSettings(
                   borderWidth: 2.5,
                   borderColor: Colors.green,

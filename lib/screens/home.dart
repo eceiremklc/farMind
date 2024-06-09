@@ -10,38 +10,55 @@ import 'package:flutter/material.dart';
 
 import '../components/navbar.dart';
 
-class HomePage extends StatelessWidget{
+class HomePage extends StatelessWidget {
   @override
-  Widget build (BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFF0FFF0),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              WeatherWidget(),
-             Row(
-               mainAxisAlignment: MainAxisAlignment.center,
-               children: [
-                 HumidityCard(),
-                 WaterTank(),
-               ],
-             ),
-              SizedBox(height: 16,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+      body: Stack(
+        children: [
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/fon.png'),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          SafeArea(
+            child: SingleChildScrollView(
+              child: Column(
                 children: [
-                  TemperatureCard(),
-                  AirHumidity(),
+                  WeatherWidget(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      HumidityCard(),
+                      WaterTank(),
+                    ],
+                  ),
+                  SizedBox(height: 16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TemperatureCard(),
+                      AirHumidity(),
+                    ],
+                  ),
+                  SizedBox(height: 8),
+                  WateringCard(),
                 ],
               ),
-              SizedBox(height: 8,),
-              WateringCard(),
-            ],
+            ),
           ),
-        ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Navbar(),
+          ),
+        ],
       ),
-      bottomNavigationBar: Navbar(),
     );
   }
 }
