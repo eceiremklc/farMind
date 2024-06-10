@@ -1,6 +1,7 @@
 import 'package:farmind/components/menu_components.dart';
 import 'package:farmind/components/navbar.dart';
 import 'package:farmind/components/watering_switch.dart';
+import 'package:farmind/screens/air_humidity_details.dart';
 import 'package:farmind/screens/recognize_plant.dart';
 import 'package:farmind/screens/soil_humidity_details.dart';
 import 'package:farmind/screens/temperature_details.dart';
@@ -28,6 +29,8 @@ class Menu extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  MenuComponents.air_humidity(context, AirHumidityDetails()),
+                  SizedBox(height: 25),
                   MenuComponents.sicaklik(context, TemperatureDetails()),
                   SizedBox(height: 25),
                   MenuComponents.humidity(context, SoilHumidityDetails()),

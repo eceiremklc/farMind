@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
         const Locale('tr'), // Turkish
       ],
       locale: Locale('tr'), // Set Turkish as the default locale
-      home: HomePage(),
+      home: StartPage(),
       /*initialRoute: '/',
       routes: {
         '/': (context) =>  LoginPage(),

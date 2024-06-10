@@ -51,6 +51,22 @@ class SignUpPage extends StatelessWidget{
       _emailController.clear();
       _parolaController.clear();
       _parolatController.clear();
+
+      // Başarılı kayıt olduğunda SnackBar göster
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Kayıt başarılı!"),
+          duration: Duration(seconds: 2), // Opsiyonel: SnackBar ne kadar süre gösterilecek?
+        ),
+      );
+
+      // Başarılı kayıt olduğunda giriş ekranına yönlendir
+      Future.delayed(Duration(seconds: 2), () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => LoginPage()),
+        );
+      });
     } catch (e) {
       print("Kayıt başarısız!: $e");
       ScaffoldMessenger.of(context).showSnackBar(
@@ -68,89 +84,86 @@ class SignUpPage extends StatelessWidget{
     return Scaffold(
       backgroundColor: Color(0xFFEFECE9),
       body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(height: 120,),
-              Text(
-                'Kayıt Ol',
-                style: LoginStyles.login_title,
-              ),
-              SizedBox(height: 25,),
-              SizedBox(width: 335, height: 60,
-                child: TextFormField(
-                  controller: _adController,
-                  decoration: SignUpComponents.ad(),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(height: 120,),
+                Text(
+                  'Kayıt Ol',
+                  style: LoginStyles.login_title,
                 ),
-              ),
-              SizedBox(height: 10,),
-              SizedBox(width: 335, height: 60,
-                child: TextFormField(
-                  controller: _soyadController,
-                  decoration: SignUpComponents.soyad(),
-                ),
-              ),
-              SizedBox(height: 10,),
-              SizedBox(width: 335, height: 60,
-                child: TextFormField(
-                  controller: _telController,
-                  decoration: SignUpComponents.tel(),
-                ),
-              ),
-              SizedBox(height: 10,),
-              SizedBox(width: 335, height: 60,
-                child: TextFormField(
-                  controller: _emailController,
-                  decoration: SignUpComponents.email(),
-                ),
-              ),
-              SizedBox(height: 10,),
-              SizedBox(width: 335, height: 60,
-                child: TextFormField(
-                  controller: _parolaController,
-                  obscureText: true,
-                  decoration: SignUpComponents.parola(),
-                ),
-              ),
-              SizedBox(height: 10,),
-              SizedBox(width: 335, height: 60,
-                child: TextFormField(
-                  controller: _parolatController,
-                  obscureText: true,
-                  decoration: SignUpComponents.parolat(),
-                ),
-              ),
-              SizedBox(height: 20,),
-              SizedBox(height: 50, width: 140,
-                child: ElevatedButton(
-                  onPressed: () {
-                    _registerWithEmailAndPassword(context);
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => LoginPage()));
-                  },
-                  style: SignUpStyles.kayit_button,
-                  child: Text(
-                    'Kayıt Ol',
-                    style: SignUpStyles.kayit_text,
+                SizedBox(height: 25,),
+                SizedBox(width: 335, height: 60,
+                  child: TextFormField(
+                    controller: _adController,
+                    decoration: SignUpComponents.ad(),
                   ),
                 ),
-              ),
-              SizedBox(height: 25,),
-              TextButton(onPressed: (){
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => LoginPage()));
-              },
-                child: Text(
-                  'Hesabınız var mı? Giriş yapın',
-                  style: SignUpStyles.t_button,
+                SizedBox(height: 10,),
+                SizedBox(width: 335, height: 60,
+                  child: TextFormField(
+                    controller: _soyadController,
+                    decoration: SignUpComponents.soyad(),
+                  ),
                 ),
-              ),
-            ],
-          ),
-        )
+                SizedBox(height: 10,),
+                SizedBox(width: 335, height: 60,
+                  child: TextFormField(
+                    controller: _telController,
+                    decoration: SignUpComponents.tel(),
+                  ),
+                ),
+                SizedBox(height: 10,),
+                SizedBox(width: 335, height: 60,
+                  child: TextFormField(
+                    controller: _emailController,
+                    decoration: SignUpComponents.email(),
+                  ),
+                ),
+                SizedBox(height: 10,),
+                SizedBox(width: 335, height: 60,
+                  child: TextFormField(
+                    controller: _parolaController,
+                    obscureText: true,
+                    decoration: SignUpComponents.parola(),
+                  ),
+                ),
+                SizedBox(height: 10,),
+                SizedBox(width: 335, height: 60,
+                  child: TextFormField(
+                    controller: _parolatController,
+                    obscureText: true,
+                    decoration: SignUpComponents.parolat(),
+                  ),
+                ),
+                SizedBox(height: 20,),
+                SizedBox(height: 50, width: 140,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      _registerWithEmailAndPassword(context);
+                    },
+                    style: SignUpStyles.kayit_button,
+                    child: Text(
+                      'Kayıt Ol',
+                      style: SignUpStyles.kayit_text,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 25,),
+                TextButton(onPressed: (){
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginPage()));
+                },
+                  child: Text(
+                    'Hesabınız var mı? Giriş yapın',
+                    style: SignUpStyles.t_button,
+                  ),
+                ),
+              ],
+            ),
+          )
       ),
     );
   }

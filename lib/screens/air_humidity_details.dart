@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
+import '../components/export_to_excel.dart';
 import '../components/navbar.dart';
 import '../components/ortalama_deger.dart';
 import '../components/min_max_hesapla.dart'; // MinMaxHesapla sınıfı eklendi
@@ -6,6 +8,8 @@ import '../components/air_humidity_chart.dart';
 import '../styles/detail_styles.dart';
 
 class AirHumidityDetails extends StatelessWidget {
+
+  final ExportToExcel exportToExcel = ExportToExcel();
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Map<String, double?>>(
@@ -18,6 +22,8 @@ class AirHumidityDetails extends StatelessWidget {
         } else {
           double ortalamaHavaNemi = snapshot.data?['ortalama'] ?? 0; // Ortalama değeri kullan, yoksa 0 kullan
           double minHavaNemi = snapshot.data?['min'] ?? 0; // Minimum değeri kullan, yoksa 0 kullan
+          double maxHavaNemi = snapshot.data?['max'] ?? 0; // Maksimum değeri kullan, yoksa 0 kullan
+
           return Scaffold(
             backgroundColor: const Color(0xFFEFECE9),
             appBar: AppBar(
@@ -46,6 +52,27 @@ class AirHumidityDetails extends StatelessWidget {
                   Center(
                     child: Column(
                       children: [
+                        SizedBox(height: 8),
+                        ElevatedButton(
+                          onPressed: () async {
+                            print('Export button pressed');
+                            await Permission.storage.request(); // İzin isteme
+                            try {
+                              await exportToExcel.export(context);
+                              print('Export completed successfully');
+                            } catch (e) {
+                              print('Error during export: $e');
+                            }
+                          },
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(Color(0xFFDFE4DD)),
+                          ),
+                          child: Text(
+                            'Dışa Aktar: .xlsx',
+                            style: DetailStyles.export,
+                          ),
+                        ),
+                        SizedBox(height: 10),
                         Container(
                           width: 360,
                           height: 340,
@@ -101,6 +128,29 @@ class AirHumidityDetails extends StatelessWidget {
                             ],
                           ),
                         ),
+                        SizedBox(height: 10),
+                        Container(
+                          padding: EdgeInsets.all(15),
+                          height: 62,
+                          width: 360,
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFDFE4DD),
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                          child: Row(
+                            children: [
+                              Text(
+                                'Maksimum Hava Nemi: ',
+                                style: DetailStyles.avgwidget,
+                              ),
+                              SizedBox(width: 43),
+                              Text(
+                                '${maxHavaNemi.toStringAsFixed(2)}',
+                                style: DetailStyles.avgdata,
+                              ),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -133,6 +183,7 @@ class AirHumidityDetails extends StatelessWidget {
     String field = 'nem'; // Alan adı
     double? avgHumidity = await OrtalamaDeger().avgHesapla(field); // Ortalama nem değeri
     double? minHumidity = await MinMaxHesapla().minHesapla(field); // Minimum nem değeri
-    return {'ortalama': avgHumidity, 'min': minHumidity};
+    double? maxHumidity = await MinMaxHesapla().maxHesapla(field); // Maksimum nem değeri
+    return {'ortalama': avgHumidity, 'min': minHumidity, 'max': maxHumidity};
   }
 }

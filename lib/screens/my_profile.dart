@@ -35,36 +35,7 @@ class MyProfile extends StatelessWidget {
                   children: [
                     SizedBox(
                       width: 200,
-                      height: 130,
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                              const Color(0xFF5CB063)),
-                          shape: MaterialStateProperty.resolveWith<OutlinedBorder?>(
-                                (Set<MaterialState> states) {
-                              return RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30.0),
-                              );
-                            },
-                          ),
-                        ),
-                        child: Text(
-                          textAlign: TextAlign.center,
-                          'Bilgilerimi Düzenle',
-                          style: TextStyle(
-                              fontFamily: 'Nunito',
-                              fontWeight: FontWeight.w600,
-                              fontSize: 20,
-                              color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 30,),
-                    SizedBox(
-                      width: 200,
-                      height: 130,
+                      height: 100,
                       child: ElevatedButton(
                         onPressed: () async {
                           await FirebaseAuth.instance.signOut();

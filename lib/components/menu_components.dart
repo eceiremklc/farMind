@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:farmind/screens/temperature_details.dart';
 
 class MenuComponents {
-  static Container weather(BuildContext context, Widget targetScreen) => Container(
+  static Container air_humidity(BuildContext context, Widget targetScreen) => Container(
     width: 340,
     height: 60,
     child: ElevatedButton.icon(
@@ -13,11 +13,11 @@ class MenuComponents {
         );
       },
       icon: Icon(
-        Icons.sunny,
+        Icons.water_drop_outlined,
         color: Colors.white,
       ),
       label: Text(
-        'Hava Durumu',
+        'Hava Nemi Ölçümleri',
         style: TextStyle(
           fontFamily: "Nunito",
           fontSize: 18,
@@ -34,15 +34,19 @@ class MenuComponents {
   static Container sicaklik(BuildContext context, Widget targetScreen) => Container(
     width: 340,
     height: 60,
-    child: ElevatedButton(
+    child: ElevatedButton.icon(
       onPressed: () {
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => targetScreen),
         );
       },
-      child: Text(
-        'Sıcaklık ve Nem Ölçümleri',
+      icon: Icon(
+        Icons.sunny,
+        color: Colors.white,
+      ),
+      label: Text(
+        'Hava Sıcaklığı Ölçümleri',
         style: TextStyle(
           fontFamily: "Nunito",
           fontSize: 18,

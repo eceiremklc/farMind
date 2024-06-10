@@ -1,19 +1,25 @@
 import 'dart:io';
 import 'package:excel/excel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 
-
-class ExportToExcel{
-  Future <void> export() async{
+class ExportToExcel {
+  Future<void> export(BuildContext context) async {
+    // Request storage permissions
+    if (!await _requestPermission(Permission.storage)) {
+      print('Storage permission denied');
+      return;
+    }
 
     final collectionRef = FirebaseFirestore.instance.collection('sensordata');
     final query = collectionRef.orderBy('timestamp');
     final snapshot = await query.get();
 
     final excel = Excel.createExcel();
-    Sheet sheet = excel['Veriler'];
+    Sheet sheet = excel['Sheet1'];
 
     sheet.cell(CellIndex.indexByString('A1')).value = TextCellValue('Zaman Damgası');
     sheet.cell(CellIndex.indexByString('B1')).value = TextCellValue('Toprak Nemi');
@@ -39,16 +45,59 @@ class ExportToExcel{
       row++;
     }
 
-    final appDocDir = await getApplicationDocumentsDirectory();
-    final filePath = '${appDocDir.path}/sensorVerileri.xlsx';
+    // Use path_provider to get the documents directory
+    Directory? appDocDir = await getExternalStorageDirectory();
+    if (appDocDir == null) {
+      print('Failed to get documents directory');
+      return;
+    }
+    String targetDirectory = appDocDir.path;
+    final filePath = '$targetDirectory/sensorVerileri.xlsx';
 
     List<int>? fileBytes = excel.save();
     if (fileBytes != null) {
-      File(filePath)..createSync(recursive: true)..writeAsBytesSync(fileBytes);
-      final uri = Uri.file(filePath); // Create a Uri from the file path
-      await launchUrl(uri); // Launch the Uri using launchUrl
+      File(filePath)
+        ..createSync(recursive: true)
+        ..writeAsBytesSync(fileBytes);
+
+      print('File saved at: $filePath');
+
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Dosya Kaydedildi'),
+            content: Text('Dosya başarıyla kaydedildi. Dosyayı açmak ister misiniz?'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () async {
+                  Navigator.of(context).pop();
+                  final result = await OpenFile.open(filePath);
+                  print('OpenFile result: ${result.message}');
+                },
+                child: Text('Evet'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('Hayır'),
+              ),
+            ],
+          );
+        },
+      );
     } else {
       print('Hata: Excel dosyası kaydedilemedi.');
+    }
+  }
+
+  Future<bool> _requestPermission(Permission permission) async {
+    if (await permission.isGranted) {
+      return true;
+    } else {
+      final result = await permission.request();
+      return result.isGranted;
     }
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 import '../components/navbar.dart';
 import '../components/soil_humidity_chart.dart';
 import '../styles/detail_styles.dart';
@@ -50,8 +51,15 @@ class SoilHumidityDetails extends StatelessWidget {
                       children: [
                         SizedBox(height: 8),
                         ElevatedButton(
-                          onPressed: () {
-                            exportToExcel.export();
+                          onPressed: () async {
+                            print('Export button pressed');
+                            await Permission.storage.request(); // İzin isteme
+                            try {
+                              await exportToExcel.export(context);
+                              print('Export completed successfully');
+                            } catch (e) {
+                              print('Error during export: $e');
+                            }
                           },
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(Color(0xFFDFE4DD)),

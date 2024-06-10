@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
+import '../components/export_to_excel.dart';
 import '../components/navbar.dart';
 import '../components/temperature_chart.dart';
 import '../styles/detail_styles.dart';
@@ -6,6 +8,7 @@ import '../components/ortalama_deger.dart';
 import '../components/min_max_hesapla.dart';
 
 class TemperatureDetails extends StatelessWidget {
+  final ExportToExcel exportToExcel = ExportToExcel();
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Map<String, double?>>(
@@ -22,7 +25,7 @@ class TemperatureDetails extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               title: Text(
-                'Sıcaklık Ölçümleri',
+                'Hava Sıcaklığı Ölçümleri',
                 style: DetailStyles.header,
               ),
             ),
@@ -42,6 +45,27 @@ class TemperatureDetails extends StatelessWidget {
                   child: Center(
                     child: Column(
                       children: [
+                        SizedBox(height: 8),
+                        ElevatedButton(
+                          onPressed: () async {
+                            print('Export button pressed');
+                            await Permission.storage.request(); // İzin isteme
+                            try {
+                              await exportToExcel.export(context);
+                              print('Export completed successfully');
+                            } catch (e) {
+                              print('Error during export: $e');
+                            }
+                          },
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(Color(0xFFDFE4DD)),
+                          ),
+                          child: Text(
+                            'Dışa Aktar: .xlsx',
+                            style: DetailStyles.export,
+                          ),
+                        ),
+                        SizedBox(height: 10),
                         Container(
                           width: 360,
                           height: 330,

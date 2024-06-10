@@ -40,62 +40,65 @@ class LoginPage extends StatelessWidget{
   }
 
   @override
-  Widget build (BuildContext context){
-    return Scaffold(
-      backgroundColor: Color(0xFFEFECE9),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(height: 10,),
-              Text(
-                'Giriş Yap',
-                style: LoginStyles.login_title,
-              ),
-              SizedBox(height: 50,),
-              SizedBox(width: 335, height: 60,
-                child: TextFormField(
-                  controller: _emailController,
-                  decoration: LoginComponents.email(),
+  Widget build(BuildContext context){
+    return WillPopScope(
+      onWillPop: () async => false, // Geri düğmesine basıldığında geri alma işlevini pasif hale getirir
+      child: Scaffold(
+        backgroundColor: Color(0xFFEFECE9),
+        body: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(height: 10,),
+                Text(
+                  'Giriş Yap',
+                  style: LoginStyles.login_title,
                 ),
-              ),
-              SizedBox(height: 15,),
-              SizedBox(width: 335, height: 60,
-                child: TextFormField(
-                  controller: _parolaController,
-                  obscureText: true,
-                  decoration: LoginComponents.sifre(),
-                ),
-              ),
-              SizedBox(height: 25,),
-              SizedBox(width: 140, height: 50,
-                child: ElevatedButton(
-                  onPressed: () {
-                    _signInWithEmailAndPassword(context);
-                  },
-                  style: LoginStyles.login_button,
-                  child: Text(
-                    'Giriş Yap',
-                    style: LoginStyles.button_text,
+                SizedBox(height: 50,),
+                SizedBox(width: 335, height: 60,
+                  child: TextFormField(
+                    controller: _emailController,
+                    decoration: LoginComponents.email(),
                   ),
                 ),
-              ),
-              SizedBox(height: 30,),
-              TextButton(
-                onPressed: (){
-                  Navigator.push(
-                      context,
-                    MaterialPageRoute(builder: (context) => SignUpPage()
-                    ),
-                  );
-                },
-                child: Text(
-                  'Hesabınız yok mu? Kayıt Olun.',
-                  style: LoginStyles.tb_style,
+                SizedBox(height: 15,),
+                SizedBox(width: 335, height: 60,
+                  child: TextFormField(
+                    controller: _parolaController,
+                    obscureText: true,
+                    decoration: LoginComponents.sifre(),
+                  ),
                 ),
-              ),
-            ],
+                SizedBox(height: 25,),
+                SizedBox(width: 140, height: 50,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      _signInWithEmailAndPassword(context);
+                    },
+                    style: LoginStyles.login_button,
+                    child: Text(
+                      'Giriş Yap',
+                      style: LoginStyles.button_text,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 30,),
+                TextButton(
+                  onPressed: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SignUpPage()
+                      ),
+                    );
+                  },
+                  child: Text(
+                    'Hesabınız yok mu? Kayıt Olun.',
+                    style: LoginStyles.tb_style,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
