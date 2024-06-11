@@ -14,7 +14,7 @@ class WeatherWidget extends StatefulWidget {
 }
 
 class _WeatherWidgetState extends State<WeatherWidget> {
-  final _weatherService = WeatherServices('4389978ee584532a83ec2b5233bc4050');
+  final _weatherService = WeatherServices('YOURAPIKEY');
   late WeatherData weatherInfo;
   bool isLoading = true;
   String errorMessage = '';
